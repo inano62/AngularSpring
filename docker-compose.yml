@@ -21,7 +21,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/appdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: YourPassword123
-    ports:
+    flyway:
+      enabled: true
+      locations: classpath:db/migration
+　　　ports:
       - "8080:8080"
 
   frontend:
