@@ -21,11 +21,16 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/appdb
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: YourPassword123
-    flyway:
-      enabled: true
-      locations: classpath:db/migration
-　　　ports:
+    ports:
       - "8080:8080"
+
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://db:5432/app -user=postgres -password=pass migrate
+    volumes:
+      - ./db/migration:/flyway/sql
+    depends_on:
+      - db
 
   frontend:
     image: node:20-alpine
